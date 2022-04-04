@@ -1,0 +1,43 @@
+// =============================================================================
+// PRICE (CSS)
+// =============================================================================
+
+.price-section {
+	// color: $color-textSecondary;
+	line-height: 1.2;
+
+	> * {
+		vertical-align: baseline;
+	}
+
+	[itemprop="priceSpecification"] {
+		display: inline;
+	}
+
+	&--minor{
+		.price--main{
+			color:inherit;
+		}
+	}
+}
+
+.price-section--saving {
+	.price {
+		color: $color-textSecondary;
+	}
+}
+
+.price {
+	color: stencilColor("color-price");
+}
+
+.price--rrp,
+.price--non-sale,
+.price--discounted,
+.price-tax-label,
+.price-label,
+.price-now-label,
+.price-was-label {
+	color: $color-textSecondary;
+	font-weight: fontWeight("normal");
+}

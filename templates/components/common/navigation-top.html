@@ -1,0 +1,131 @@
+<nav class="navUser navUser--storeInfo">
+    <ul class="navUser-section">
+        {{#if theme_settings.show_welcome_text}}
+        <li class="navUser-item">
+            <span class="navUser-welcome">{{{lang 'emthemesmodez.top_nav.welcome_text' store_name=settings.store_name}}}</span>
+        </li>
+        {{/if}}
+        {{!-- #if theme_settings.topHeader_banner1}}
+        <li class="navUser-item">
+            <div data-emthemesmodez-remote-banner="emthemesModezBannersBlockTopHeaderBanner01"></div>
+        </li>
+        {{/if --}}
+        <li class="navUser-item">
+            {{{region name="header_top_message--global"}}}
+        </li>
+    </ul>
+</nav>
+
+<nav class="navUser">
+
+    {{!-- #if theme_settings.topHeader_banner2}}
+        <div data-emthemesmodez-remote-banner="emthemesModezBannersBlockTopHeaderBanner02"></div>
+    {{/if --}}
+
+
+        {{{region name="header_top_links--global"}}}
+
+
+    {{> components/common/currency-selector}}
+
+    {{#or theme_settings.topHeader_address theme_settings.topHeader_phone theme_settings.topHeader_account}}
+    <ul class="navUser-section">
+
+        {{#if settings.address}}
+        {{#if theme_settings.topHeader_address}}
+        <li class="navUser-item">
+            <span class="navUser-action">
+                <span class="navUser-item-icon {{lang 'emthemesmodez.top_nav.icon_class1'}}"></span>
+                <span class="navUser-item-mapLabel">{{{lang 'emthemesmodez.top_nav.text1' address=settings.address phone_number=settings.phone_number}}}</span>
+            </span>
+        </li>
+        {{/if}}
+        {{/if}}
+
+        {{#if settings.phone_number}}
+        {{#if theme_settings.topHeader_phone}}
+        <li class="navUser-item">
+            <a class="navUser-action" href="tel:{{settings.phone_number}}">
+                <span class="navUser-item-icon {{lang 'emthemesmodez.top_nav.icon_class2'}}"></span>
+                <span class="navUser-item-phoneLabel">{{{lang 'emthemesmodez.top_nav.text2' address=settings.address phone_number=settings.phone_number}}}</span>
+            </a>
+        </li>
+        {{/if}}
+        {{/if}}
+
+        {{#if theme_settings.topHeader_account}}
+        {{#if theme_settings.navUser_accountBox}}
+            <li class="navUser-item navUser-item--account">
+                <a class="navUser-action" href="{{urls.account.index}}" title="{{#if customer}}{{lang 'common.account'}}{{else}}{{lang 'common.login'}}{{/if}}">
+                    <span class="navUser-item-icon navUser-item-accountIcon emthemesModez-icon-linear-user"></span>
+                    <span class="navUser-item-accountLabel">{{lang 'common.account'}}</span>
+                </a>
+
+                <div class="dropdown-menu" id="account-dropdown" data-dropdown-content aria-hidden="true">
+                    {{#if customer}}
+
+                        <ul class="navUserAccount-submenu-list">
+                            <li class="navUserAccount-submenu-item">
+                                <a class="navUserAccount-action" href="{{urls.account.orders.all}}">{{lang 'account.nav.orders'}}</a>
+                            </li>
+                            {{#if settings.returns_enabled}}
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.returns}}">{{lang 'account.nav.returns'}}</a>
+                                </li>
+                            {{/if}}
+                            <li class="navUserAccount-submenu-item">
+                                <a class="navUserAccount-action" href="{{urls.account.inbox}}">{{lang 'account.mobile_nav.messages'}}</a>
+                            </li>
+                            <li class="navUserAccount-submenu-item">
+                                <a class="navUserAccount-action" href="{{urls.account.addresses}}">{{lang 'account.nav.addresses'}}</span></a>
+                            </li>
+                            {{#if settings.show_payment_methods}}
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.payment_methods.all}}">{{lang 'account.nav.payment_methods'}}</a>
+                                </li>
+                            {{/if}}
+                            <li class="navUserAccount-submenu-item">
+                                <a class="navUserAccount-action" href="{{urls.account.wishlists.all}}">{{lang 'account.mobile_nav.wishlists'}}</a>
+                            </li>
+                            <li class="navUserAccount-submenu-item">
+                                <a class="navUserAccount-action" href="{{urls.account.recent_items}}">{{lang 'account.nav.recently_viewed'}}</a>
+                            </li>
+                            <li class="navUserAccount-submenu-item">
+                                <a class="navUserAccount-action" href="{{urls.account.details}}">{{lang 'account.nav.settings'}}</a>
+                            </li>
+                        </ul>
+
+                        <a class="navUserAccount-action navUserAccount-action--logout" href="{{urls.auth.logout}}">{{lang 'common.logout'}}</a>
+                    {{else}}
+                        <a class="navUserAccount-action" href="{{urls.auth.login}}" title="{{lang 'common.login'}}">
+                            <span class="navUserAccount-item-loginLabel" >{{lang 'common.login'}}</span>
+                        </a>
+                        {{#if settings.account_creation_enabled}}
+                            <a class="navUserAccount-action navUserAccount-action--signup" href="{{urls.auth.create_account}}" title="{{lang 'common.sing_up'}}">{{lang 'common.sign_up'}}</a>
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </li>
+        {{else}}
+            <li class="navUser-item navUser-item--account">
+                {{#if customer}}
+                    <a class="navUser-action" href="{{urls.account.index}}">
+                        <span class="navUser-item-icon navUser-item-accountIcon emthemesModez-icon-linear-user"></span>
+                        <span class="navUser-item-accountLabel">{{lang 'common.account'}}</span>
+                    </a>
+                    <a class="navUser-action" href="{{urls.auth.logout}}">{{lang 'common.logout'}}</a>
+                {{else}}
+                    <a class="navUser-action" href="{{urls.auth.login}}">
+                        <span class="navUser-item-icon navUser-item-loginIcon emthemesModez-icon-linear-user"></span>
+                        <span class="navUser-item-loginLabel">{{lang 'common.login'}}</span>
+                    </a>
+                    {{#and settings.account_creation_enabled theme_settings.navUser_createAccount}}
+                        <span class="navUser-or">{{lang 'common.or'}}</span> <a class="navUser-action navUserAccount-action--signup" href="{{urls.auth.create_account}}">{{lang 'common.sign_up'}}</a>
+                    {{/and}}
+                {{/if}}
+            </li>
+        {{/if}}
+        {{/if}}
+    </ul>
+    {{/or}}
+</nav>

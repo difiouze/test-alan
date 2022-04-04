@@ -1,0 +1,28 @@
+<section expanded class="productAccordion" data-video-gallery>
+    <div class="productAccordion-title">
+        {{lang 'products.videos.header'}}
+    </div>
+    <div class="productAccordion-content">
+        <amp-carousel width="640"
+            height="490"
+            layout="responsive"
+            type="slides">
+            {{#each this.list}}
+                <div>
+                    <div>
+                        <amp-youtube
+                            data-videoid="{{id}}"
+                            layout="responsive"
+                            width="640"
+                            height="390">
+                        </amp-youtube>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">{{title_long}}</div>
+                        <p class="video-description">{{description_short}}</p>
+                    </div>
+                </div>
+            {{/each}}
+        </amp-carousel>
+    </div>
+</section>

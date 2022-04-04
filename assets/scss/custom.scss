@@ -1,0 +1,76 @@
+.variant-container {
+  display: flex;
+}
+
+.variant-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+  max-width: 300px;
+  width: 100%;
+
+  img {
+    height: 300px;
+  }
+}
+
+.custom-field {
+  padding: 5px;
+
+  &__container {
+    border: 1px solid #e3e3e3;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+}
+
+.quantity-box {
+  display: flex;
+  border: 1px solid #e3e3e3;
+  margin: 10px;
+
+  &-control {
+    cursor: pointer;
+    padding: 5px 15px;
+    background-color: #e8e8e8;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  &-increment {
+
+  }
+
+  &-decrement {
+
+  }
+
+  &-input {
+    border: 0 none;
+    text-align: center;
+    width: 50px;
+  }
+
+}
+
+.btn-addToCart {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background-color: #fff;
+    color: black;
+  }
+
+}

@@ -1,0 +1,152 @@
+<nav class="navUser">
+
+    <ul class="navUser-section navUser-section--alt">
+
+        {{!-- #if theme_settings.navuser_custom --}}
+        <li class="navUser-item navUser-item--custom">
+        {{{region name="navuser_custom--global"}}}
+        </li>
+        {{!-- /if --}}
+
+        {{#unless theme_settings.topHeader_account}}
+            {{#if theme_settings.navUser_accountBox}}
+                <li class="navUser-item navUser-item--account">
+                    <a class="navUser-action navUser-action--accountbox"
+                       data-dropdown="account-dropdown"
+                       data-options="align:bottom"
+                       href="{{urls.account.index}}"
+                       title="{{#if customer}}{{lang 'common.account'}}{{else}}{{lang 'common.login'}}{{/if}}">
+                        <span class="navUser-item-icon navUser-item-accountIcon"><svg class="icon"><use xlink:href="#icon-user" /></svg></span>
+                        <span class="navUser-item-accountLabel" >{{lang 'common.account'}}</span>
+                    </a>
+                    <div class="dropdown-menu" id="account-dropdown" data-dropdown-content aria-hidden="true">
+                        {{#if customer}}
+
+                            <ul class="navUserAccount-submenu-list">
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.orders.all}}">{{lang 'account.nav.orders'}}</a>
+                                </li>
+                                {{#if settings.returns_enabled}}
+                                    <li class="navUserAccount-submenu-item">
+                                        <a class="navUserAccount-action" href="{{urls.account.returns}}">{{lang 'account.nav.returns'}}</a>
+                                    </li>
+                                {{/if}}
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.inbox}}">{{lang 'account.mobile_nav.messages'}}</a>
+                                </li>
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.addresses}}">{{lang 'account.nav.addresses'}}</span></a>
+                                </li>
+                                {{#if settings.show_payment_methods}}
+                                    <li class="navUserAccount-submenu-item">
+                                        <a class="navUserAccount-action" href="{{urls.account.payment_methods.all}}">{{lang 'account.nav.payment_methods'}}</a>
+                                    </li>
+                                {{/if}}
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.wishlists.all}}">{{lang 'account.mobile_nav.wishlists'}}</a>
+                                </li>
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.recent_items}}">{{lang 'account.nav.recently_viewed'}}</a>
+                                </li>
+                                <li class="navUserAccount-submenu-item">
+                                    <a class="navUserAccount-action" href="{{urls.account.details}}">{{lang 'account.nav.settings'}}</a>
+                                </li>
+                            </ul>
+
+                            <a class="navUserAccount-action navUserAccount-action--logout" href="{{urls.auth.logout}}">{{lang 'common.logout'}}</a>
+                        {{else}}
+                            <a class="navUserAccount-action" href="{{urls.auth.login}}" title="{{lang 'common.login'}}">
+                                <span class="navUserAccount-item-loginLabel" >{{lang 'common.login'}}</span>
+                            </a>
+                            {{#if settings.account_creation_enabled}}
+                                <a class="navUserAccount-action" href="{{urls.auth.create_account}}" title="{{lang 'common.sing_up'}}">{{lang 'common.sign_up'}}</a>
+                            {{/if}}
+                        {{/if}}
+                    </div>
+                </li>
+            {{else}}
+            <li class="navUser-item navUser-item--account">
+
+                    <span class="navUser-item-icon navUser-item-accountIcon emthemesModez-icon-linear-user"></span>
+                    <div class="navUser-actions">
+                    {{#if customer}}
+                        <a class="navUser-action" href="{{urls.account.index}}">
+                            <span class="navUser-item-accountLabel">{{lang 'common.account'}}</span>
+                        </a>
+                        <a class="navUser-action navUser-action--logout" href="{{urls.auth.logout}}">{{lang 'common.logout'}}</a>
+                    {{else}}
+                        <a class="navUser-action" href="{{urls.auth.login}}">
+                            <span class="navUser-item-loginLabel">{{lang 'common.login'}}</span>
+                        </a>
+                        {{#if settings.account_creation_enabled}}
+                            <a class="navUser-action" href="{{urls.auth.create_account}}">{{lang 'common.sign_up'}}</a>
+                        {{/if}}
+                    {{/if}}
+                    </div>
+
+            </li>
+            {{/if}}
+        {{/unless}}
+
+        {{#all settings.show_wishlist theme_settings.navUser_wishlist}}
+            <li class="navUser-item">
+                <a class="navUser-action navUser-action--wishlist" href="{{urls.account.wishlists.all}}" title="{{lang 'account.nav.wishlists'}}">
+                    <span class="navUser-item-icon navUser-item-wishlistIcon"><svg class="icon"><use xlink:href="#icon-heart" /></svg></span>
+                    <span class="navUser-item-wishlistLabel">{{{lang 'account.nav.wishlists2'}}}</span>
+                </a>
+            </li>
+        {{/all}}
+
+        {{#and (if customer.store_credit.value '>' 0) theme_settings.navUser_storeCredit}}
+            <li class="navUser-item">
+                <a class="navUser-action navUser-action--storeCredit"
+                   data-dropdown="storeCredit-dropdown"
+                   data-options="align:bottom"
+                   href="{{urls.cart}}">
+                        <span class="navUser-action-divider">{{lang 'common.store_credit_overview' credit=customer.store_credit.formatted}}</span>
+                </a>
+                <div class="dropdown-menu" id="storeCredit-dropdown" data-dropdown-content aria-hidden="true">
+                    {{{lang 'common.store_credit' store_credit=customer.store_credit.formatted}}}
+                </div>
+            </li>
+        {{/and}}
+
+        <li class="navUser-item navUser-item--compare">
+            <a class="navUser-action navUser-action--compare" href="{{urls.compare}}" data-compare-nav>{{lang 'common.compare'}} <span class="countPill countPill--positive countPill--alt"></span></a>
+        </li>
+
+        {{#and settings.gift_certificates_enabled theme_settings.navUser_gift}}
+            <li class="navUser-item">
+                <a class="navUser-action navUser-action--giftCert" href="{{urls.gift_certificate.purchase}}" title="{{lang 'common.gift_cert'}}">
+                    <span class="navUser-item-icon navUser-item-giftCertIcon"><svg class="icon"><use xlink:href="#icon-gift" /></svg></span>
+                    <span class="navUser-item-giftCertLabel">{{{lang 'common.gift_cert2'}}}</span>
+                </a>
+            </li>
+        {{/and}}
+        {{#if theme_settings.navUser_recentlyViewed}}
+            <li class="navUser-item">
+                <a class="navUser-action navUser-action--recentlyViewed" href="#recently-viewed" data-dropdown="recently-viewed-dropdown" data-options="align:right" title="{{lang 'account.nav.recently_viewed'}}" style="display:none">
+                    <span class="navUser-item-icon navUser-item-recentlyViewedIcon"><svg class="icon"><use xlink:href="#icon-recent-list" /></svg></span>
+                    <span class="navUser-item-recentlyViewedLabel">{{{lang 'account.nav.recently_viewed2'}}}</span>
+                </a>
+                <div class="dropdown-menu" id="recently-viewed-dropdown" data-dropdown-content aria-hidden="true"></div>
+            </li>
+        {{/if}}
+
+        <li class="navUser-item navUser-item--cart">
+
+            <a
+                class="navUser-action navUser-action--cart"
+                data-cart-preview
+                data-dropdown="cart-preview-dropdown"
+                data-options="align:right"
+                href="{{urls.cart}}"
+                title="{{lang 'common.cart'}}">
+                <span class="navUser-item-icon navUser-item-cartIcon"><svg class="icon"><use xlink:href="#icon-cart" /></svg><span class="countPill cart-quantity"></span></span>
+                <span class="navUser-item-cartLabel">{{lang 'common.cart'}}</span>
+            </a>
+
+            <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div>
+        </li>
+    </ul>
+</nav>

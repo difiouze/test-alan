@@ -1,0 +1,34 @@
+{{#partial "page"}}
+
+    <main class="page">
+
+        <div class="page-content">
+
+            {{{region name="page_builder_content--global"}}}
+            {{{region name="page_builder_content"}}}
+
+            {{#replace '%%Syndicate%%' page.content}}
+                {{> components/page/rss_feed}}
+            {{else}}
+                {{{page.content}}}
+            {{/replace}}
+
+            {{#if page.feed}}
+                <ul>
+                    {{#each page.feed}}
+                        <li>
+                            <h6><a href="{{url}}" target="_blank">{{title}}</a></h6>
+                            <p>{{content}}</p>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+
+            {{{region name="page_builder_bottom"}}}
+            {{{region name="page_builder_bottom--global"}}}
+        </div>
+    </main>
+
+{{/partial}}
+
+{{> layout/base}}

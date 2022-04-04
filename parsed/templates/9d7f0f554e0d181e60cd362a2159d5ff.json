@@ -1,0 +1,3 @@
+{
+  "components/papa-supermarket/sidebar/banner1": "<div class=\"sidebarBlock sidebarBlock--banner emthemesModezBannersBlockSidebar01\">\r\n    <div class=\"emthemesModez-bannersContainer\">\r\n        <div class=\"emthemesModez-banner\">\r\n            <div class=\"emthemesModez-banner-figure\">\r\n                <a href=\"#\"><img class=\"emthemesModez-banner-image\" title=\"Fullscreen Banner\" src=\"https://placehold.it/270x450\" alt=\"Sample Banner\" /></a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+}
