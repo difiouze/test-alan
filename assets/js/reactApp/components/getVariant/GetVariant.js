@@ -1,6 +1,7 @@
 import React from "react";
 import useVariantList from "../../services/hooks/useVariantList";
-import SingleVariant from '../singleVariant/SingleVariant';
+import Variant from '../Variant/Variant';
+import AddProductsToCart from "../AddProductsToCart.js/AddProductsToCart";
 
 const VariantsTable = ( ) => {
 
@@ -19,12 +20,19 @@ const VariantsTable = ( ) => {
 
   return (
     <>
-    <div>
-    <span>Différents coloris:</span>
+    {data.site.product.variants.edges.length > 1 ? 
+    <div>    
+      <div>
+      <span>Différents coloris:</span>
       <div className="variant-container">{data.site.product.variants.edges.map((variant)=> (
-        <SingleVariant key={variant.node.entityId} variant={variant.node} productId={productId}/>
+        <Variant key={variant.node.entityId} variant={variant.node} productId={productId}/>
       ))}</div>
-    </div> 
+    </div>
+    <div>
+      <AddProductsToCart />
+    </div>
+    </div> : 
+    <span>Ce produit ne possède pas de variant</span>}
     </>
   )
 }

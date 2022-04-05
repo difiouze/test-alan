@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { addProductsToCart, getCart } from '../../services/cartManager';
+import { addProductsToCart, getCart, createCart } from '../../services/cartManager';
 
-const SingleVariant = ( {variant, productId}) => {
+const Variant = ( {variant, productId}) => {
 
-const [nombreProduit, setNombreProduit] = useState(1);
+const [productQuantity, setProductQuantity] = useState(0);
 const [lineItems, setLineItems] = useState([]);
 
 useEffect(() => {
   const item = {
     productId,
     variantId: variant.entityId,
-    quantity: nombreProduit
+    quantity: productQuantity
   }
   setLineItems([item])
-}, [nombreProduit])
+}, [productQuantity])
 
 // On ajoute un produit //
 const incrementProduct = () => {
-  setNombreProduit(nombreProduit + 1);
+  setProductQuantity(productQuantity + 1);
 }
 
 // On supprime un produit //
 const decrementProduct = () => {
-  if(nombreProduit <= 0) {
+  if(productQuantity <= 0) {
     return
   }
-  setNombreProduit(nombreProduit - 1);
+  setProductQuantity(productQuantity - 1);
 }
 
 // On ajoute un article ou plus au panier
@@ -33,22 +33,24 @@ const addToCart = async () => {
   const cart = await getCart();
 
   console.log("Cart", cart);
+  console.log("Line Items", lineItems);
 
   // Si le cart existe //
-  if(cart[0].id != undefined) {
+  if(cart.length > 0) {
     addProductsToCart(lineItems, cart[0].id);
   }
 
   // Si le cart n'existe pas  => creation de panier //
-
+  else {
+    createCart(lineItems);
+  }
 }
 
 // Changement Input //
 
 const handleInput = (e) => {
-  setNombreProduit(parseInt(e.target.value));
+  setProductQuantity(parseInt(e.target.value));
 }
-
 
   return (
     <div className="variant-box">
@@ -56,7 +58,7 @@ const handleInput = (e) => {
 
     <div className="quantity-box">
       <div onClick={() => decrementProduct()} className='quantity-box-control quantity-box-decrement'><span>-</span></div>
-      <input className='quantity-box-input' onChange={(e) => handleInput(e)} value={nombreProduit} />
+      <input className='quantity-box-input' onChange={(e) => handleInput(e)} value={productQuantity} />
       <div onClick={() => incrementProduct()} className='quantity-box-control quantity-box-increment'><span>+</span></div>
     </div>
 
@@ -66,4 +68,4 @@ const handleInput = (e) => {
   )
 }
 
-export default SingleVariant
+export default Variant;
